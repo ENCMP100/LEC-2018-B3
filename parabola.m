@@ -1,8 +1,10 @@
 % PARABOLA: y = a*x^2 + b*x + c
-% takes parameters and domain (range of x 
-% values) for the parabolic curve, computes
-% the range of x,y coordinates and plots 
-% the curve
+% Takes coefficients, domain and sample count for the parabolic curve and
+% plots it.
+%
+% Author: Kamal Ranaweera
+% License: GPLv3
+
 
 % Using disp function to provide a brief message.
 disp('Plotting parabolic curve y = ax^2 + bx + c')
