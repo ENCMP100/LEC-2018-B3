@@ -43,15 +43,15 @@ ylabel('Height (m)');
 % calculate the positions of the gorillas
 index1 = randi([1, round(length(stagex)/4)]);
 player1x = stagex(index1);
-player1y = stagey(index1) + 2.5;
-plot(player1x,player1y, '+', 'MarkerSize',20) 
+player1y = stagey(index1) + 3;
+plot(player1x,player1y, 'p', 'MarkerSize',20) 
 
 
 % calculate the positions of the gorilla 2
 index2 = randi([round(length(stagex)/1), round(length(stagex))]);
 player2x = stagex(index2);
-player2y = stagey(index2) + 2.5;
-plot(player2x,player2y, '+', 'MarkerSize',20) 
+player2y = stagey(index2) + 3;
+plot(player2x,player2y, 'p', 'MarkerSize',20) 
 
 % Player 1 throws a banana
 disp('Gorilla (facing east):');
@@ -61,8 +61,8 @@ v0 = round(input('    Velocity (m/s)? '));
 t = 0:0.1:20; %compute a time vector
 x0 = player1x;
 y0 = player1y + 3;
-x = x0 + v0*cosd(a0)*t; 
-y = y0 + v0*sind(a0)*t-9.81/2*t.^2;
+x = x0 + v0 * cosd(a0) * t; 
+y = y0 + v0 * sind(a0) * t - 9.81/2 * t.^2;
 plot(x,y,'r-');
 figure(gcf) % bring the current figure to focus
 
@@ -76,7 +76,7 @@ v0 = round(input('    Velocity (m/s)? '));
 t = 0:0.1:20; %compute a time vector
 x0 = player2x;
 y0 = player2y + 3;
-x = x0 + v0*cosd(a0)*t; 
-y = y0 + v0*sind(a0)*t-9.81/2*t.^2;
+x = x0 + v0 * cosd(a0) * t; 
+y = y0 + v0 * sind(a0) * t - 9.81/2 * t.^2;
 plot(x,y,'r-');
 figure(gcf) % bring the current figure to focus
