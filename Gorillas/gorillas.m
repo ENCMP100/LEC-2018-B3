@@ -16,7 +16,7 @@ close all % closing all figures
 clc % clear the command window
 clear % clear all workspace variables
 
-% Launch a figuer window
+% Launch a figure window
 figure
 hold on
 
@@ -48,7 +48,7 @@ plot(player1x,player1y, 'p', 'MarkerSize',20)
 
 
 % calculate the positions of the gorilla 2
-index2 = randi([round(length(stagex)/1), round(length(stagex))]);
+index2 = randi([round(length(stagex)/2), length(stagex)]);
 player2x = stagex(index2);
 player2y = stagey(index2) + 3;
 plot(player2x,player2y, 'p', 'MarkerSize',20) 
@@ -58,7 +58,7 @@ disp('Gorilla (facing east):');
 a0 = round(input('    Angle (degrees)? '));
 v0 = round(input('    Velocity (m/s)? '));
 
-t = 0:0.1:20; %compute a time vector
+t = 0:0.1:20; %compute a time vector, in seconds
 x0 = player1x;
 y0 = player1y + 3;
 x = x0 + v0 * cosd(a0) * t; 
