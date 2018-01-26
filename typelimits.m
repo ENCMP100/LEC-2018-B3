@@ -2,6 +2,7 @@
 % them to show the maximum and minimum values that can be stored in some of
 % the data types
 
+% Clear the environment
 clear
 close all
 clc
