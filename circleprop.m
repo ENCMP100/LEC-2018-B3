@@ -8,6 +8,12 @@
 % Taking radius as input
 radius = input('Enter radius: ');
 
+if radius < 0
+    error('Invalid radius. Please input a positive number');
+end
+    
+
+
 % Calculating circumference. i.e. c = 2*pi*r
 circum = 2 * pi * radius;
 
@@ -15,7 +21,6 @@ circum = 2 * pi * radius;
 area = pi * radius^2;
 
 % Displaying results
-% Let's use %.3f to print the result in 3 decimal places and \n to add a
 % newline before the word "Area". We use two newline characters at the end
 % to make sure there is a blank line before the command prompt is shown
 % when the script ended.
@@ -25,4 +30,9 @@ area = pi * radius^2;
 fprintf("Circumference = %.3f\nArea = %.3f\n\n", circum, area);
 
 
+if isa(area, 'double')
+    do one thing
+else
+    do somethig else
+end
 

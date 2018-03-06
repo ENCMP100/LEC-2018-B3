@@ -8,7 +8,9 @@
 clear
 clc
 
-for loopVar = 1:2:10
+x = 1:10;
+
+for loopVar = 1:10
     % displaying which iteration we are in the loop
     fprintf("Loop Variable = %d\n", loopVar);
     

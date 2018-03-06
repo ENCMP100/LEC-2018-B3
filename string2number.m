@@ -5,7 +5,7 @@
 inValue = input('Enter a numer between 1 to 3 in lower case: ', 's');
 
 switch inValue
-    case {'one', 'two'}
+    case {'one'}
         outVal = 1;
     case 'two'
         outVal = 2;

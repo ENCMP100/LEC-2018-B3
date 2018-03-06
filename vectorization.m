@@ -7,11 +7,12 @@ clc
 
 % Example 1: calculating the sum of all numbers in an M x N matrix
 % ================================================================
-M = 10000;
-N = 10000;
+M = 1000;
+N = 1000;
 mat = rand([M N]);
 
 % using loops
+profile on
 tic
 s = 0;
 for row = 1:M
@@ -21,6 +22,8 @@ for row = 1:M
 end
 fprintf("sum, using loop, is %f\n\n", s);
 toc
+profile viewer
+
 
 % using vector or matrix operations
 tic
