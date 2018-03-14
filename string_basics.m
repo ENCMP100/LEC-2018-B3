@@ -15,14 +15,16 @@ str1 = 'The quick brown fox'
 str2 = 'jumps over the lazy dog'
 
 mystr1 = strcat(str1, ' ', str2)
-mystr2 = strcat([str1, ' ', str2])
+mystr2 = strcat([str1 ' ' str2])
 
 
 % Creating a formatted string
 className = 'ENCMP100B3';
 numStudents = 175;
 myMessage = sprintf('\nHello,\nThe number of students in %s is %d\nThank you', ...
-    className, numStudents)
+   className, numStudents);
+
+disp(myMessage)
 
 
 
@@ -92,6 +94,8 @@ evalResult = eval(expression)
 % isletter, isspace, ischar
 
 % int2str, num2str, str2double, str2num
+
+% strtok
 
 
 

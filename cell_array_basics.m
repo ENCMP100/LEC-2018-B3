@@ -18,11 +18,11 @@ disp('myCellArray2:')
 disp(myCellArray2)
 
 % Accesing a cell in an array
-cell2 = myCellArray2(2);
+cell2 = myCellArray2(2, 1);
 disp('cell2:')
 disp(cell2)
 
-cellContent2 = myCellArray2{2};
+cellContent2 = myCellArray2{2, 1};
 disp('cellContent2:')
 disp(cellContent2)
 
