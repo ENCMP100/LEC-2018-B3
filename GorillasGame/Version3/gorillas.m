@@ -27,7 +27,7 @@ game = initgame();
 % Adding players to the game structure
 game = setplayers(game);
 
-while ~game.won
+while ~game.isFinished
     % player 1 playing
     game = shoot(game, 1);
     

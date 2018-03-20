@@ -7,7 +7,9 @@ buildingHeightRage = [25, 75]; % in meters
 stagey = randi(buildingHeightRage, 1, length(stagex));
 bar(stagex, stagey)
 
-game = struct('stageX', stagex, 'stageY', stagey);
+game = struct('stageX', stagex, ...
+    'stageY', stagey, ...
+    'isFinished', false);
 
 % calculating horizontal and verticla axes limits
 xmin = min(stagex) - 12; % "-12" to create some room at the left.

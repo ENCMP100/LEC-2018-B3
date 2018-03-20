@@ -1,15 +1,18 @@
-function won = shoot(playerX, playerY, playerNumber)
+function game = shoot(game, playerNumber)
 % Player throwing a banana
 %
 % Parameters:
-%   playerX, playerY: x and y coordinates of the player
+%   game: contains the current state of the game
 %   playerNumber 
 %        1: east facing player
 %        other: west facing player
 %
 % Return:
-%  won: true, if the current player won
+%  game: the updated game state after the current player played
 %
+
+playerX = game.players(playerNumber).x;
+playerY = game.players(playerNumber).y;
 
 if playerNumber == 1
     disp('Gorilla (facing east):');
@@ -34,6 +37,6 @@ plot(x,y,'r-');
 figure(gcf) % bring the current figure to focus (foreground)
 
 
-% Determining whether the player won
-won = false; %% just a placeholder value
+% TODO: Determine whether the game ended
+game.isFinished = false; %% just a placeholder value
 end
