@@ -31,8 +31,14 @@ while ~game.isFinished
     % player 1 playing
     game = shoot(game, 1);
     
+    % clear command prompt
+    clc
+    
     % player 2 playing
     game = shoot(game, 2);
+    
+    % clear command prompt
+    clc
 end
 
 
