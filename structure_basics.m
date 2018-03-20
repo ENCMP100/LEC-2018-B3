@@ -12,6 +12,7 @@ record = struct('firstName', 'John', ...
                 'lastName', 'Smith', ...
                 'age', 13, ...
                 'grade', 8);
+            
 disp(record)           
   
             
@@ -38,7 +39,8 @@ disp(first)
 % Structure Functions
 % ===================
 
-% rmfield
+recordUpdated = rmfield(record, 'age');
+
 
 % isstruct
 
@@ -50,10 +52,24 @@ disp(first)
 
 % Nested Structures
 % =================
-
-
+name = struct('first', 'John', 'last', 'Smith');            
+record = struct('name', name, ...
+                'age', 13, ...
+                'grade', 8);
+disp('record:')
+disp(record)
+            
+record2 = struct('name', struct('first', 'John', 'last', 'Smith'), ...
+                'age', 13, ...
+                'grade', 8);
+disp('record2:')
+disp(record2)
+            
+            
 % Accessing properties of a nested structure
 
+firstName = record.name.first;
+disp(firstName)
 
 
 
@@ -61,16 +77,29 @@ disp(first)
 % ===================
 % E.g. Write a loop to obtain contact information of 5 persons.
 % You should prompt for full name, address and phone number for 
-% each person and store them in a struct with appropriate fields.
+% each person and store them in a structure with appropriate fields.
 % Store the list of contacts in an array called contactList.
 
+% Prealloating an array for contat list
+numContacts = 5;
+template = struct('name', '', ...
+    'address', '', ...
+    'phone', ''); % define the structure with dummy field values
 
+contactList = repmat(template, numContacts, 1); % pre-allocating array
+for i = 1:numContacts
+    contact = struct; % creating a new empty structure to store the details
 
-
+    contact.name = input('Full name: ',  's');
+    contact.address = input('Address: ', 's');
+    contact.phone = input('Phone: ', 's');
+    
+    contactList(i) = contact;
+end
 
 
 % Accessing elements in a struture array
-
+name1 = contactList(1).name;
 
 
 % Vectorized access of fields in a structure array

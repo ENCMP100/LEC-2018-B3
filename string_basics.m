@@ -95,7 +95,16 @@ evalResult = eval(expression)
 
 % int2str, num2str, str2double, str2num
 
-% strtok
+str = 'the Quick Brown Fox Jumps Over the Lazy Dog'
+[token, remain] = strtok(str)
+done = false;
+clc
+while ~done
+    [token, str] = strtok(str, 'the')
+    
+    done = str == '';
+end
+
 
 
 
