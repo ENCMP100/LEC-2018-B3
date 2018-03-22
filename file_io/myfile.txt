@@ -1,3 +1,0 @@
-This is the line number 1
-This class has 175 students
-Average class has 82.76 average

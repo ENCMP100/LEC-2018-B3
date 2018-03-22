@@ -48,10 +48,23 @@ clear
 load mymat.mat
 whos
 
+
+mat4 = rand(10);
+save mymat.bin mat4
+
+% If the file extention in a MAT file is NOT 
+% .mat then we should specify the format using -mat switch
+% to the load command
+load mymat.bin -mat
+
+
 % Generic File Input/Output
 % =========================
 clc
 clear
+
+% Reading text from files
+% -----------------------
 
 % checking the content of the sample.txt file in the current folder
 type sample.txt
@@ -93,29 +106,62 @@ fclose(fileID);
 % fgetl strips it off.
 
 
-% Write a loop to read a file line by line until end
+% EX1: Write a loop to read a file line by line until end
 % Use the function feof to determine whether the end of file
 % has been reached
 
+% Pseudo code:
+% open the file
+% while you have not reached the end of the file
+% read a line and display it
+% when you reach the end, close the file
+fid = fopen('sample.txt');
+numIterations = 0; % counting how many times the loop got executed
+while ~feof(fid)
+    line = fgets(fid);
+    fprintf("%s",line);
+    numIterations = numIterations + 1;
+end
+fclose(fid);
+fprintf('Number of times the loop iterated = %d\n', numIterations);
+% Note that the above loop iterated exactly as many time as the 
+% number of lines in the file, because it reads one whole line at a time
 
 
+% EX2: Using fgets to read a file line by line but only at a limited number
+% of characters at a time.
+
+fid = fopen('sample.txt');
+maxCharPerIteration = 10;
+while ~feof(fid)
+    line = fgets(fid, maxCharPerIteration);
+    fprintf("%s",line);
+    numIterations = numIterations + 1;
+end
+fclose(fid);
+fprintf('Number of times the loop iterated = %d\n', numIterations);
+% Note that the above loop iterated many more times than the 
+% number of lines in the file, because it 
+% only reads "maxCharPerIteration" characters per iteration. 
 
 
 % Writing formatted text to a text file
+% -------------------------------------
 fileID2 = fopen('myfile.txt', 'w'); % opening the file for writing (or overwriting)
 if fileID2 < 0
     error('Error opening the file');
 end
-byteCount = fprintf(fileID2, "This is the line number %d\n", 1);
+fprintf(fileID2, "This is the line number %d\n", 1);
 
-fprintf(fileID2, "This class has %d students\n", 175);
+byteCount = fprintf(fileID2, "This class has %d students\n", 175);
+
 % closing the file
 fclose(fileID2);
 
 
 % Appending formatted text to the end of a text file
 fileID3 = fopen('myfile.txt', 'a'); % opening (or creating) the file for appending
-fprintf(fileID2, "Average class has %3.2f average\n", 82.758);
+fprintf(fileID3, "Average class has %3.2f average\n", 82.758);
 fclose(fileID3);
 
 
