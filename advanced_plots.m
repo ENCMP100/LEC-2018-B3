@@ -44,7 +44,8 @@ ylabel('Population (mil)')
 % Advanced bar garphs
 % ===================
 figure
-groupages = [8 19 43 25; 35 44 30 45];
+groupages = [8 19 43 25; ...
+             35 44 30 45];
 
 % Bar graph of groups (each group represents values from a row of a matrix)
 subplot(1,2,1)
@@ -96,10 +97,18 @@ pie(data, {'A', 'B', 'C', 'D', 'E'})
 % ===============
 
 % loglog - uses log scale for both x and y axes
+x = 1:10;
+y = 10.^x;
+plot(x,y)
+
+logy = log(y);
 
 % semilogx - uses log scale the  x axis
 
 % semilogy - uses log scale the  y axis
+x = 1:10;
+y = 10.^x;
+semilogy(x, y)
 
 
 % Animated plots
