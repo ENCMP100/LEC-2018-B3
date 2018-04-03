@@ -28,15 +28,72 @@ end
 
 v0 = round(input('    Velocity (m/s)? '));
 
-t = 0:0.1:20; %compute a time vector, in seconds
+% Current position of the player
 x0 = playerX;
 y0 = playerY + 3;
-x = x0 + v0 * cosd(a0) * t; 
-y = y0 + v0 * sind(a0) * t - 9.81/2 * t.^2;
 
-animate(x, y, game)
+% Calculating the y value of the prjectile at each building location using
+% the following equations:
+% x = x0 + v0 * cosd(a0) * t;   <-- eq. 1
+% y = y0 + v0 * sind(a0) * t - 9.81/2 * t.^2;   <-- eq. 2
+% 
+% we can replace t in eq. 2 using t calculated from eq. 1
+% y = y0 + v0 * sind(a0) * (x - x0) / (v0 * cosd(a0)) - 9.81/2 * ((x - x0) / (v0 * cosd(a0))).^2;  <-- eq. 3
+
+
+% Calculating y values of the prjectile at building locations using eq. 3
+projectileYAtBuildingLocations = y0 + v0 * sind(a0) * (game.stageX - x0) / (v0 * cosd(a0)) - 9.81/2 * ((game.stageX - x0) / (v0 * cosd(a0))).^2;
+
+
+% Selecting the buildings which are taller than the height of the
+% projectile at their locations. These are the candidates for collisions
+collisionCandidates = projectileYAtBuildingLocations <= game.stageY;
+
+if playerNumber == 1
+    % This is the player at the left section of the stage. Therefore, a
+    % potenial coltion can happen only with a building at the right-hand
+    % side of it. Select the FIRST such building from the above
+    % "collisionCandidates".
+    
+    collisionCandidates = collisionCandidates & game.stageX > x0; % buildings at the right hand side
+    collisionBuildingIndex = find(collisionCandidates, 1); % first building that collides        
+else
+    % This is the player at the right section of the stage. Therefore, a
+    % potenial coltion can happen only with a building at the left-hand
+    % side of it. Select the LAST such building from the above
+    % "collisionCandidates".
+    
+    collisionCandidates = collisionCandidates & game.stageX < x0; % buildings at the left hand side
+    collisionBuildingIndex = find(collisionCandidates, 1, 'last'); % last building that collides
+end
+
+if ~isempty(collisionBuildingIndex)
+    projectileXLast = game.stageX(collisionBuildingIndex);
+else
+    % no collision occurs. Setting the last x value of the prjectile to be
+    % the end of the stage or begining of the stage depending on whether
+    % the current player is the first player or the second player
+    
+    gapBetweenBuildings = game.stageX(2) - game.stageX(1);
+    if playerNumber == 1
+        projectileXLast = game.stageX(end) + gapBetweenBuildings; % end of the stage
+    else
+        projectileXLast = game.stageX(1) - gapBetweenBuildings;
+    end
+end
+
+% calculating 100 points between the player positio n to the last x value
+% of the projectile
+projectileX = linspace(x0, projectileXLast);
+
+% calculating y values of the projectile for the above x values of the
+% projectile using eq. 3
+projectileY = y0 + v0 * sind(a0) * (projectileX - x0) / (v0 * cosd(a0)) - 9.81/2 * ((projectileX - x0) / (v0 * cosd(a0))).^2;
+
+
+% animating the projectile
+animate(projectileX, projectileY, game)
 figure(gcf) % bring the current figure to focus (foreground)
-
 
 % TODO: Determine whether the game ended
 game.isFinished = false; %% just a placeholder value
@@ -57,7 +114,7 @@ for i = 1 : length(x)-1
     handles(i) = plot([x(i) x(i+1)], [y(i) y(i+1)], 'r-');
     
     % Add a delay to emulate slow motion
-    pause(0.01)
+    pause(0.005)
     
     % checking whether the banana hits a building. 
     % ============================================
