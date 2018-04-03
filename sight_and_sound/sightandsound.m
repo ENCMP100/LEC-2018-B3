@@ -14,10 +14,24 @@ figure  % Creating a new figure window
 image(im1) % Displaying the image
 
 
+im1(100:200, 100:200, 1) = 1;
+im1(100:200, 100:200, 2) = 0;
+im1(100:200, 100:200, 3) = 0;
+
+figure  % Creating a new figure window
+image(im1) % Displaying the image
+
+
+
 % Creating a random colour image 
 im2(:,:,3) = rand(480);
-im2(:,:,2) = rand(480); 
 im2(:,:,1) = rand(480); 
+im2(:,:,2) = rand(480); 
+
+im2(100:200, 350:450, 1) = 1;
+im2(100:200, 350:450, 2) = 0;
+im2(100:200, 350:450, 3) = 0;
+
 whos im2
 figure
 image(im2)
@@ -52,7 +66,10 @@ image(im4)
 
 % Creating and displaying a 480 x 480 color-mapped image where each pixel
 % shows a random color from the current color map
-
+imx = rand(480); % each value can range from 0 to 1
+[Rows, Cols] = size(colormap);
+imx = uint8(imx * (Rows - 1)) + 1;
+image(imx)
 
 
 % Creating a 640 x 400 color-mapped color image which shows each color in
@@ -63,12 +80,12 @@ for i=1:64
 end
 image(im5)
 
-% Different types of built-in color maps: parula, jet, winter, summer
-
+% Different types of built-in coljetor maps: parula, jet, winter, summer
+colormap(jet)
+colormap(winter)
 
 % Saving a color-mapped true-color image to the disk
 imwrite(im5, colormap, 'myoutimage2.png','png') 
-
 
 
 % Working with sounds
@@ -78,3 +95,10 @@ whos
 sound(y); % plays the sound at default sampling frequency determined by constant Fs
 
 % 
+load 'handel.mat'; % loading sound wave from a mat file.
+sound(y);
+
+
+
+
+
