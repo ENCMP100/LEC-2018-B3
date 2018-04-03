@@ -106,6 +106,15 @@ function animate(x, y, game)
 
 handles = zeros(length(x));
 
+% Since the width of bars was not specified, it uses a default width of 0.8
+% (i.e. 80% of x step. Let's calculate the east and west wall of cuildings
+% and store them in two arrays inside the game object. We will need this to
+% detect collision of bananas on buildings.
+buildingWidth = 0.8 * (game.stageX(2) - game.stageX(1)); % 
+eastWallsX = game.stageX - buildingWidth/2;
+westWallsX = game.stageX + buildingWidth/2;
+
+
 for i = 1 : length(x)-1
     
     % plotting the line segment from the ith location in the trajectory to
@@ -122,7 +131,7 @@ for i = 1 : length(x)-1
     % find the index of stagex where x(i+1) belongs to. i.e. x should be
     % greater than or equal eastWallsX and less than or equal to the
     % westWallsX
-    index = find(x(i+1) >= game.eastWallsX & x(i+1) <= game.westWallsX, 1);
+    index = find(x(i+1) >= eastWallsX & x(i+1) <= westWallsX, 1);
     
     % NOTE: if the index is empty, that measn the current position of the banana
     % is between two buildings. 
