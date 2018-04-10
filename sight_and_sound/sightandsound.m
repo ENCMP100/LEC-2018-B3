@@ -96,9 +96,28 @@ sound(y); % plays the sound at default sampling frequency determined by constant
 
 % 
 load 'handel.mat'; % loading sound wave from a mat file.
-sound(y);
+sound(y); % playing the file with default sampling frequency of 8192 samples/sec
+
+% specifying a different sampling frequency 
+sound(y, 16384); % playing twice faster. Note that the play time will be half now.
 
 
+% Creating and playing a movie
+% ============================
 
+clear
+close all
+clc
+figure
 
+t = 1: 60; % number of frames for the movie
+M = repmat(getframe, length(t)); %pre-allocating array
+for t = 1 : 60
+    theta = 1:360;
+    phase = 2*t;
+    y = sind(theta + phase);
+    plot(y, 'LineWidth', 2);
+    M(t) = getframe;
+end
+movie(M);
 

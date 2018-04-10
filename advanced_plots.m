@@ -125,3 +125,15 @@ plot(x,y) % none animated plot
 subplot(2,1,2)
 comet(x,y) % animated plot
 
+
+% Saving or printing a figure
+% ============================
+print -dpng myplot.png  % saving the current figure using command-line format
+
+print('myfig.pdf', '-dpdf') % saving the current figure using function format
+
+print % printing to the current figure to the default printer
+
+
+
+

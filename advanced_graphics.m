@@ -13,7 +13,7 @@ clc
 
 groot
 
-groot.CurrentFigure
+% groot.CurrentFigure
 
 handle = groot;
 handle.CurrentFigure
@@ -122,6 +122,31 @@ h2.MarkerSize = 12;
 
 % setting the figure title
 title('My Example Figure')
+
+
+
+
+myvar = true;
+
+if myvar
+    disp('Two')
+end
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
