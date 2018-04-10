@@ -11,22 +11,44 @@ function game = shoot(game, playerNumber)
 %  game: the updated game state after the current player played
 %
 
-playerX = game.players(playerNumber).x;
-playerY = game.players(playerNumber).y;
+player = game.players(playerNumber);
+playerX = player.XData;
+playerY = player.YData;
 
-if playerNumber == 1
-    disp('Gorilla (facing east):');
-else
-    disp('Gorilla (facing west):');
+player.MarkerFaceColor = 'r';
+
+handle = gca;
+prevPt = handle.CurrentPoint;
+currPt = handle.CurrentPoint;
+while prevPt(1,1) == currPt(1,1) && prevPt(1,2) == currPt(1,2)
+    currPt = handle.CurrentPoint;
+    pause(0.2);
 end
 
-a0 = round(input('    Angle (degrees)? '));
+dy = currPt(1,2) - player.YData;
+dx = currPt(1,1) - player.XData;
 
-if playerNumber ~= 1
-    a0 = 180 - a0;
-end
+% angle
+a0 = atan2d(dy, dx);
 
-v0 = round(input('    Velocity (m/s)? '));
+% calculate the initial velocity proportional to the distance
+% between the player and the clicked point.
+k = 2;
+v0 = k * sqrt(dx^2 + dy^2);
+
+% % % % % if playerNumber == 1
+% % % % %     disp('Gorilla (facing east):');
+% % % % % else
+% % % % %     disp('Gorilla (facing west):');
+% % % % % end
+% % % % % 
+% % % % % a0 = round(input('    Angle (degrees)? '));
+% % % % % 
+% % % % % if playerNumber ~= 1
+% % % % %     a0 = 180 - a0;
+% % % % % end
+% % % % % 
+% % % % % v0 = round(input('    Velocity (m/s)? '));
 
 % Current position of the player
 x0 = playerX;
@@ -95,8 +117,35 @@ projectileY = y0 + v0 * sind(a0) * (projectileX - x0) / (v0 * cosd(a0)) - 9.81/2
 animate(projectileX, projectileY, game)
 figure(gcf) % bring the current figure to focus (foreground)
 
+player.MarkerFaceColor = 'none';
+
 % TODO: Determine whether the game ended
-game.isFinished = false; %% just a placeholder value
+
+% if collisionBuildingIndex is none empty and if it lands on a building
+% where a player is, then we got a winner/loser
+if ~isempty(collisionBuildingIndex)
+    collsionXVal = game.stageX(collisionBuildingIndex);
+    
+    if collsionXVal == game.players(1).XData
+        % player 1 loses
+        game.isFinished = true;
+        game.players(1).MarkerFaceColor = 'black';
+        
+        cry = audioread('no.wav');
+        sound(cry, 32000)     
+    elseif collsionXVal == game.players(2).XData
+        % player 2 loses
+        game.isFinished = true;
+        game.players(2).MarkerFaceColor = 'black';
+        
+        cry = audioread('no.wav');
+        sound(cry, 32000)
+    else
+        game.isFinished = false;
+    end
+end
+
+
 end
 
 
